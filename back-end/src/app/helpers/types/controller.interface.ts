@@ -1,11 +1,6 @@
-import {
-  ICreateInput, IDeleteInput, IUpdateInput, IUpdateStatusInput,
-} from './task.interface';
-
-export interface ControllerDTO<T> {
-  create(obj: ICreateInput): Promise<T>;
-  read(): Promise<Array<T>>;
-  updateStatus(obj: IUpdateStatusInput): Promise<T | null>;
-  update(obj: IUpdateInput): Promise<T | null>;
-  delete(obj: IDeleteInput): Promise<T | null>;
+export interface ControllerDTO<Output, CreateInput, UpdateInput, DeleteInput> {
+  create(obj: CreateInput): Promise<Output>;
+  read(): Promise<Array<Output>>;
+  update(obj: UpdateInput): Promise<Output | null>;
+  delete(obj: DeleteInput): Promise<Output | null>;
 }
