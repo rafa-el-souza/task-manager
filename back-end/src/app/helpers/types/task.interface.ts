@@ -1,33 +1,15 @@
-import { ObjectId } from 'mongoose';
+export type TaskStatus = 'pendente' | 'andamento' | 'pronto';
 
-export type IStatus = 'pendente' | 'andamento' | 'pronto';
-
-export interface ICreateInput {
+export interface CreateTaskInput {
   name: string,
   description: string,
-  status: IStatus;
+  status: TaskStatus;
 }
 
-export interface IDeleteInput {
-  _id: ObjectId,
+export interface UpdateTaskInput extends CreateTaskInput{
+  _id: string,
 }
 
-export interface IUpdateInput {
-  _id: ObjectId,
-  name: string,
-  description: string,
-  status: IStatus;
-}
-
-export interface IUpdateStatusInput {
-  _id: ObjectId,
-  status: IStatus;
-}
-
-export interface ITask {
-  _id: ObjectId,
-  name: string,
-  description: string,
-  createdAt: Date,
-  status: IStatus;
+export interface DeleteTaskInput {
+  _id: string,
 }
