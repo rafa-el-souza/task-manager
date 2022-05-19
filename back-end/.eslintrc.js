@@ -29,6 +29,9 @@ module.exports = {
     'no-console': 'off',
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': 'error',
+    'no-useless-constructor': 'off',
+    'no-empty-function': 'off',
+    'no-underscore-dangle': 'off',
   },
   settings: {
     'import/resolver': {
