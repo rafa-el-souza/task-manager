@@ -6,7 +6,7 @@
         "start": "npx tsc && node src/build/api/index.js",
         "dev": "ts-node-dev src/api/index.ts",
         "test": "mocha -r ts-node/register src/app/tests/**/*.test.ts --exit -t 60000",
-        "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+        "lint": "eslint . --ext .ts",
         "test:coverage": "nyc npm run test"
     },
     "keywords": [],
