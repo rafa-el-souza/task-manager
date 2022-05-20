@@ -1,2 +1,2 @@
 export * from './connection';
-export * from './mongoose.model';
+export * from './task.mongoose.model';
