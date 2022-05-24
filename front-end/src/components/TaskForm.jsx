@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
+
 import api from '../helpers/axios';
 import { reloadList } from '../redux/reducers/taskReducer';
 
@@ -10,7 +11,7 @@ function TaskForm({ task = false, isUpdating = false, updateDone }) {
   const [newTask, setTask] = useState({
     name: isUpdating ? task.name : '',
     description: isUpdating ? task.description : '',
-    status: isUpdating ? task.status : '',
+    status: isUpdating ? task.status : 'pendente',
   });
 
   const handleChange = (e) => {
@@ -54,11 +55,29 @@ function TaskForm({ task = false, isUpdating = false, updateDone }) {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          value={task.name}
-          placeholder={task.name}
+          name="name"
+          value={newTask.name}
+          placeholder={isUpdating ? "Update your task's name" : 'Add a name to your task'}
           onChange={handleChange}
           onKeyUp={(e) => e.key === 'Enter' && handleSubmit(e)}
         />
+        <input
+          type="text"
+          name="description"
+          value={newTask.description}
+          placeholder={isUpdating ? "Update your task's description" : 'Add a description to your task'}
+          onChange={handleChange}
+          onKeyUp={(e) => e.key === 'Enter' && handleSubmit(e)}
+        />
+        <select
+          name="status"
+          value={newTask.status}
+          onChange={handleChange}
+        >
+          <option value="pendente">Pendente</option>
+          <option value="andamento">Andamento</option>
+          <option value="pronto">Pronto</option>
+        </select>
         <input type="submit" value="Enviar" />
       </form>
     </>
