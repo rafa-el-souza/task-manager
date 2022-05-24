@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import TaskOptions from './TaskOptions';
 
 function Task({ task }) {
   return (
@@ -11,6 +12,7 @@ function Task({ task }) {
       <div>{task.createdAt}</div>
       <div>{task.updatedAt}</div>
       <div>{task.status}</div>
+      <TaskOptions />
     </>
   );
 }
