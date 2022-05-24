@@ -19,6 +19,7 @@ module.exports = {
   ],
   rules: {
     'import/prefer-default-export': 'off',
+    'no-underscore-dangle': 'off',
     'import/extensions': [
       'error',
       'ignorePackages',
