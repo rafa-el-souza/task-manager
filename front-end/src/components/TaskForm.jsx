@@ -11,7 +11,6 @@ function TaskForm({ task = false, isUpdating = false, updateDone }) {
   const [newTask, setTask] = useState({
     name: isUpdating ? task.name : '',
     description: isUpdating ? task.description : '',
-    status: isUpdating ? task.status : 'pendente',
   });
 
   const handleChange = (e) => {
@@ -22,7 +21,7 @@ function TaskForm({ task = false, isUpdating = false, updateDone }) {
 
   const handleCreate = async () => {
     try {
-      const createdTask = await api.post('/task', { data: { ...newTask } });
+      const createdTask = await api.post('/task', { data: { ...newTask, status: 'pendente' } });
 
       if (createdTask.status === 200) dispatch(reloadList());
     } catch (error) {
@@ -69,15 +68,6 @@ function TaskForm({ task = false, isUpdating = false, updateDone }) {
           onChange={handleChange}
           onKeyUp={(e) => e.key === 'Enter' && handleSubmit(e)}
         />
-        <select
-          name="status"
-          value={newTask.status}
-          onChange={handleChange}
-        >
-          <option value="pendente">Pendente</option>
-          <option value="andamento">Andamento</option>
-          <option value="pronto">Pronto</option>
-        </select>
         <input type="submit" value="Enviar" />
       </form>
     </>
