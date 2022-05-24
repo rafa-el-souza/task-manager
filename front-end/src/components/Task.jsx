@@ -1,18 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+
+import TaskDisplay from './TaskDisplay';
+import TaskForm from './TaskForm';
 import TaskOptions from './TaskOptions';
 
 function Task({ task }) {
+  const [isUpdating, setIsUpdating] = useState(false);
+
+  const updateDone = () => {
+    setIsUpdating(false);
+  };
+
   return (
     <>
-      <div>{task.index}</div>
-      <div>{task._id}</div>
-      <div>{task.name}</div>
-      <div>{task.description}</div>
-      <div>{task.createdAt}</div>
-      <div>{task.updatedAt}</div>
-      <div>{task.status}</div>
-      <TaskOptions />
+      {!isUpdating && <TaskDisplay task={task} />}
+      {!isUpdating && <TaskOptions _id={task._id} setIsUpdating={setIsUpdating} />}
+      {isUpdating && <TaskForm task={task} isUpdating updateDone={updateDone} />}
     </>
   );
 }
