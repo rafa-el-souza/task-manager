@@ -77,6 +77,7 @@ function TaskForm({ task = false, isUpdating = false, updateDone }) {
               value={newTask.name}
               placeholder={isUpdating ? "Update your task's name" : 'Add a name to your task'}
               onChange={handleChange}
+              autoFocus
             />
           )
         }
@@ -88,6 +89,7 @@ function TaskForm({ task = false, isUpdating = false, updateDone }) {
               value={newTask.description}
               placeholder={isUpdating ? "Update your task's description" : 'Add a description to your task'}
               onChange={handleChange}
+              autoFocus
             />
             )
         }
