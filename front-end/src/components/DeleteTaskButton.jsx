@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 
 import { reloadList } from '../redux/reducers/taskReducer';
-import api from '../helpers/axios';
+import api from '../helpers/api';
 
 function DeleteTaskButton({ _id }) {
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ function DeleteTaskButton({ _id }) {
       type="button"
       onClick={handleDeletion}
     >
-      Delete Task
+      🗑️
     </button>
   );
 }
