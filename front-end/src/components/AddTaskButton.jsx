@@ -13,7 +13,7 @@ function AddTaskButton() {
         dispatch(toggleAddTask());
       }}
     >
-      AddTaskButton
+      📌
     </button>
   );
 }
