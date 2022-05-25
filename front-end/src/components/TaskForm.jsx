@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 
 import api from '../helpers/axios';
-import { reloadList } from '../redux/reducers/taskReducer';
+import { reloadList, toggleAddTask } from '../redux/reducers/taskReducer';
 
 function TaskForm({ task = false, isUpdating = false, updateDone }) {
   const dispatch = useDispatch();
@@ -11,6 +11,10 @@ function TaskForm({ task = false, isUpdating = false, updateDone }) {
   const [newTask, setTask] = useState({
     name: isUpdating ? task.name : '',
     description: isUpdating ? task.description : '',
+  });
+
+  const [gotInput, setGotInput] = useState({
+    name: false,
   });
 
   const handleChange = (e) => {
@@ -21,9 +25,13 @@ function TaskForm({ task = false, isUpdating = false, updateDone }) {
 
   const handleCreate = async () => {
     try {
-      const createdTask = await api.post('/task', { data: { ...newTask, status: 'pendente' } });
+      const created = await api.post('/task', { ...newTask, status: 'pendente' });
 
-      if (createdTask.status === 200) dispatch(reloadList());
+      if (created.status === 201) {
+        dispatch(reloadList());
+
+        dispatch(toggleAddTask());
+      }
     } catch (error) {
       console.error(error);
     }
@@ -31,7 +39,7 @@ function TaskForm({ task = false, isUpdating = false, updateDone }) {
 
   const handleUpdate = async () => {
     try {
-      const updated = await api.post('/task', { ...newTask, _id: task._id });
+      const updated = await api.put('/task', { ...newTask, _id: task._id });
 
       if (updated.status === 200) {
         dispatch(reloadList());
@@ -43,7 +51,16 @@ function TaskForm({ task = false, isUpdating = false, updateDone }) {
     }
   };
 
-  const handleSubmit = () => (isUpdating ? handleUpdate() : handleCreate());
+  const nextInput = () => {
+    if (!gotInput.name) return setGotInput({ name: true });
+
+    return isUpdating ? handleUpdate() : handleCreate();
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    nextInput();
+  };
 
   return (
     <>
@@ -52,23 +69,28 @@ function TaskForm({ task = false, isUpdating = false, updateDone }) {
         {isUpdating ? ' Update' : ' Add'}
       </div>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          value={newTask.name}
-          placeholder={isUpdating ? "Update your task's name" : 'Add a name to your task'}
-          onChange={handleChange}
-          onKeyUp={(e) => e.key === 'Enter' && handleSubmit(e)}
-        />
-        <input
-          type="text"
-          name="description"
-          value={newTask.description}
-          placeholder={isUpdating ? "Update your task's description" : 'Add a description to your task'}
-          onChange={handleChange}
-          onKeyUp={(e) => e.key === 'Enter' && handleSubmit(e)}
-        />
-        <input type="submit" value="Enviar" />
+        {
+          !gotInput.name && (
+            <input
+              type="text"
+              name="name"
+              value={newTask.name}
+              placeholder={isUpdating ? "Update your task's name" : 'Add a name to your task'}
+              onChange={handleChange}
+            />
+          )
+        }
+        {
+            gotInput.name && (
+            <input
+              type="text"
+              name="description"
+              value={newTask.description}
+              placeholder={isUpdating ? "Update your task's description" : 'Add a description to your task'}
+              onChange={handleChange}
+            />
+            )
+        }
       </form>
     </>
 
