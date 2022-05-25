@@ -21,6 +21,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'no-underscore-dangle': 'off',
     'jsx-a11y/no-autofocus': 'off',
+    'no-console': 'off',
     'import/extensions': [
       'error',
       'ignorePackages',
