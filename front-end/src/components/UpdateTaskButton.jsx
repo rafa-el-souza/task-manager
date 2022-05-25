@@ -9,7 +9,7 @@ function UpdateTaskButton({ setIsUpdating }) {
         setIsUpdating(true);
       }}
     >
-      UpdateTaskButton
+      ♻️
     </button>
   );
 }
