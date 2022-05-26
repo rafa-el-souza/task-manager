@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function UpdateTaskButton({ setIsUpdating }) {
+function UpdateTaskButton({ setIsUpdatingCB }) {
   return (
     <button
       type="button"
       onClick={() => {
-        setIsUpdating(true);
+        setIsUpdatingCB(true);
       }}
     >
       ♻️
@@ -15,7 +15,7 @@ function UpdateTaskButton({ setIsUpdating }) {
 }
 
 UpdateTaskButton.propTypes = {
-  setIsUpdating: PropTypes.func.isRequired,
+  setIsUpdatingCB: PropTypes.func.isRequired,
 };
 
 export default UpdateTaskButton;
