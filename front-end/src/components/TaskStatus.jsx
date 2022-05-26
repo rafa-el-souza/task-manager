@@ -2,24 +2,23 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import api from '../helpers/axios';
+import api, { http, URL } from '../helpers/api';
 import { reloadList } from '../redux/reducers/taskReducer';
+import { formatStatus, unformattedStatuses } from '../helpers/format';
 
 function TaskStatus({ task }) {
-  const statusArray = ['pendente', 'andamento', 'pronto'];
-
   const dispatch = useDispatch();
 
   const [nextStatus, setNextStatus] = useState('');
 
   const getNextStatus = () => {
-    const currentStatusIndex = statusArray.indexOf(task.status);
+    const currentStatusIndex = unformattedStatuses.indexOf(task.status);
 
-    if (currentStatusIndex + 1 === statusArray.length) {
-      return setNextStatus(statusArray[0]);
+    if (currentStatusIndex + 1 === unformattedStatuses.length) {
+      return setNextStatus(unformattedStatuses[0]);
     }
 
-    return setNextStatus(statusArray[currentStatusIndex + 1]);
+    return setNextStatus(unformattedStatuses[currentStatusIndex + 1]);
   };
 
   useEffect(() => {
@@ -28,9 +27,9 @@ function TaskStatus({ task }) {
 
   const handleUpdate = async () => {
     try {
-      const updated = await api.put('/task', { _id: task._id, status: nextStatus });
+      const updated = await api.put(URL, { _id: task._id, status: nextStatus });
 
-      if (updated.status === 200) dispatch(reloadList());
+      if (updated.status === http.OK) dispatch(reloadList());
     } catch (error) {
       console.error(error);
     }
@@ -41,9 +40,7 @@ function TaskStatus({ task }) {
       type="button"
       onClick={handleUpdate}
     >
-      TaskStatus
-      {' '}
-      {task.status}
+      {formatStatus(task.status)}
     </button>
   );
 }
