@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import TaskStatus from './TaskStatus';
-import TaskDetailsModal from './TaskDetailsModal';
+import TaskDetailsPopover from './TaskDetailsPopover';
 
 function TaskDisplay({ task }) {
   const {
@@ -17,12 +17,10 @@ function TaskDisplay({ task }) {
         onMouseEnter={() => setShowDetails(true)}
         onMouseLeave={() => setShowDetails(false)}
       >
-        TaskDisplay
-        {' '}
         {name}
       </div>
       {showDetails && (
-        <TaskDetailsModal task={{
+        <TaskDetailsPopover task={{
           _id, description, createdAt, updatedAt,
         }}
         />
