@@ -4,6 +4,7 @@ export const URL = '/task';
 
 export const http = {
   OK: 200,
+  CREATED: 201,
 };
 
 const api = axios.create({
