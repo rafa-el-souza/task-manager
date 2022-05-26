@@ -14,8 +14,12 @@ function Task({ task }) {
 
   return (
     <>
-      {!isUpdating && <TaskDisplay task={task} />}
-      {!isUpdating && <TaskOptions _id={task._id} setIsUpdating={setIsUpdating} />}
+      {!isUpdating && (
+        <div>
+          <TaskDisplay task={task} />
+          <TaskOptions _id={task._id} setIsUpdatingCB={setIsUpdating} />
+        </div>
+      )}
       {isUpdating && <TaskForm task={task} isUpdating updateDone={updateDone} />}
     </>
   );

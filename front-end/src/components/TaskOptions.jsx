@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import DeleteTaskButton from './DeleteTaskButton';
 import UpdateTaskButton from './UpdateTaskButton';
 
-function TaskOptions({ _id, setIsUpdating }) {
+function TaskOptions({ _id, setIsUpdatingCB }) {
   return (
     <>
-      <UpdateTaskButton setIsUpdating={setIsUpdating} />
+      <UpdateTaskButton setIsUpdatingCB={setIsUpdatingCB} />
       <DeleteTaskButton _id={_id} />
     </>
   );
@@ -15,7 +15,7 @@ function TaskOptions({ _id, setIsUpdating }) {
 
 TaskOptions.propTypes = {
   _id: PropTypes.string.isRequired,
-  setIsUpdating: PropTypes.func.isRequired,
+  setIsUpdatingCB: PropTypes.func.isRequired,
 };
 
 export default TaskOptions;
