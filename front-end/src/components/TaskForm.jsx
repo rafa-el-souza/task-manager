@@ -1,16 +1,22 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 
-import api from '../helpers/api';
+import api, { http, URL } from '../helpers/api';
 import { reloadList, toggleAddTask } from '../redux/reducers/taskReducer';
+import { nameSchema } from '../helpers/joi';
 
 function TaskForm({ task = false, isUpdating = false, updateDone }) {
   const dispatch = useDispatch();
 
-  const [newTask, setTask] = useState({
+  const [newTask, setNewTask] = useState({
     name: isUpdating ? task.name : '',
     description: isUpdating ? task.description : '',
+  });
+
+  const [inputError, setInputError] = useState({
+    name: false,
   });
 
   const [gotInput, setGotInput] = useState({
@@ -20,14 +26,22 @@ function TaskForm({ task = false, isUpdating = false, updateDone }) {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    setTask({ ...newTask, [name]: value });
+    if (name === 'name') {
+      const { error = false, value: validatedValue } = nameSchema.validate(value);
+
+      setInputError({ ...inputError, [name]: error });
+
+      return setNewTask({ ...newTask, [name]: validatedValue });
+    }
+
+    return setNewTask({ ...newTask, [name]: value });
   };
 
   const handleCreate = async () => {
     try {
-      const created = await api.post('/task', { ...newTask, status: 'pendente' });
+      const created = await api.post(URL, { ...newTask, status: 'pendente' });
 
-      if (created.status === 201) {
+      if (created.status === http.CREATED) {
         dispatch(reloadList());
 
         dispatch(toggleAddTask());
@@ -39,9 +53,9 @@ function TaskForm({ task = false, isUpdating = false, updateDone }) {
 
   const handleUpdate = async () => {
     try {
-      const updated = await api.put('/task', { ...newTask, _id: task._id });
+      const updated = await api.put(URL, { ...newTask, _id: task._id });
 
-      if (updated.status === 200) {
+      if (updated.status === http.OK) {
         dispatch(reloadList());
 
         updateDone();
@@ -52,9 +66,11 @@ function TaskForm({ task = false, isUpdating = false, updateDone }) {
   };
 
   const nextInput = () => {
-    if (!gotInput.name) return setGotInput({ name: true });
+    if (!inputError.name && !gotInput.name) return setGotInput({ name: true });
 
-    return isUpdating ? handleUpdate() : handleCreate();
+    if (!inputError.name) return isUpdating ? handleUpdate() : handleCreate();
+
+    return null;
   };
 
   const handleSubmit = (e) => {
@@ -65,27 +81,28 @@ function TaskForm({ task = false, isUpdating = false, updateDone }) {
   return (
     <form onSubmit={handleSubmit}>
       {
-          !gotInput.name && (
-            <input
-              type="text"
-              name="name"
-              value={newTask.name}
-              placeholder={isUpdating ? "Update your task's name" : 'Add a name to your task'}
-              onChange={handleChange}
-              autoFocus
-            />
-          )
-        }
+        !gotInput.name && (
+          <input
+            type="text"
+            name="name"
+            value={newTask.name}
+            placeholder={isUpdating ? "Update your task's name" : 'Add a name to your task'}
+            onChange={handleChange}
+            autoFocus
+          />
+        )
+      }
+      {inputError.name && <span>{inputError.name.message}</span>}
       {
             gotInput.name && (
-            <input
-              type="text"
-              name="description"
-              value={newTask.description}
-              placeholder={isUpdating ? "Update your task's description" : 'Add a description to your task'}
-              onChange={handleChange}
-              autoFocus
-            />
+              <input
+                type="text"
+                name="description"
+                value={newTask.description}
+                placeholder={isUpdating ? "Update your task's description" : 'Add a description to your task'}
+                onChange={handleChange}
+                autoFocus
+              />
             )
         }
     </form>
