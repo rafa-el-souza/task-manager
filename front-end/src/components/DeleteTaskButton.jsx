@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 
 import { reloadList } from '../redux/reducers/taskReducer';
-import api from '../helpers/api';
+import api, { http, URL } from '../helpers/api';
 
 function DeleteTaskButton({ _id }) {
   const dispatch = useDispatch();
 
   const handleDeletion = async () => {
     try {
-      const deleted = await api.delete('/task', { data: { _id } });
+      const deleted = await api.delete(URL, { data: { _id } });
 
-      if (deleted.status === 200) dispatch(reloadList());
+      if (deleted.status === http.OK) dispatch(reloadList());
     } catch (error) {
       console.error(error);
     }
