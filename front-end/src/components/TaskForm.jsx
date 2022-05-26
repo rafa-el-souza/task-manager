@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 
-import api from '../helpers/axios';
+import api from '../helpers/api';
 import { reloadList, toggleAddTask } from '../redux/reducers/taskReducer';
 
 function TaskForm({ task = false, isUpdating = false, updateDone }) {
@@ -63,13 +63,8 @@ function TaskForm({ task = false, isUpdating = false, updateDone }) {
   };
 
   return (
-    <>
-      <div>
-        TaskForm
-        {isUpdating ? ' Update' : ' Add'}
-      </div>
-      <form onSubmit={handleSubmit}>
-        {
+    <form onSubmit={handleSubmit}>
+      {
           !gotInput.name && (
             <input
               type="text"
@@ -81,7 +76,7 @@ function TaskForm({ task = false, isUpdating = false, updateDone }) {
             />
           )
         }
-        {
+      {
             gotInput.name && (
             <input
               type="text"
@@ -93,8 +88,7 @@ function TaskForm({ task = false, isUpdating = false, updateDone }) {
             />
             )
         }
-      </form>
-    </>
+    </form>
 
   );
 }
@@ -108,15 +102,18 @@ TaskForm.defaultProps = {
 TaskForm.propTypes = {
   updateDone: PropTypes.func,
   isUpdating: PropTypes.bool,
-  task: PropTypes.shape({
-    _id: PropTypes.string,
-    name: PropTypes.string,
-    description: PropTypes.string,
-    createdAt: PropTypes.string,
-    updatedAt: PropTypes.string,
-    status: PropTypes.string,
-    index: PropTypes.number,
-  }),
+  task: PropTypes.oneOfType([
+    PropTypes.shape({
+      _id: PropTypes.string,
+      name: PropTypes.string,
+      description: PropTypes.string,
+      createdAt: PropTypes.string,
+      updatedAt: PropTypes.string,
+      status: PropTypes.string,
+      index: PropTypes.number,
+    }),
+    PropTypes.bool,
+  ]),
 };
 
 export default TaskForm;
