@@ -9,6 +9,7 @@ function AddTaskButton() {
   return (
     <button
       type="button"
+      data-testid="add-task-button"
       onClick={() => {
         dispatch(toggleAddTask());
       }}

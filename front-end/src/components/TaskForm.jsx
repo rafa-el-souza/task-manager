@@ -79,7 +79,10 @@ function TaskForm({ task = false, isUpdating = false, updateDone }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form
+      onSubmit={handleSubmit}
+      data-testid="task-form"
+    >
       {
         !gotInput.name && (
           <input
@@ -89,10 +92,17 @@ function TaskForm({ task = false, isUpdating = false, updateDone }) {
             placeholder={isUpdating ? "Update your task's name" : 'Add a name to your task'}
             onChange={handleChange}
             autoFocus
+            data-testid={isUpdating ? 'update-task-name-input' : 'add-task-name-input'}
           />
         )
       }
-      {inputError.name && <span>{inputError.name.message}</span>}
+      {inputError.name && (
+      <span
+        data-testid="name-input-error"
+      >
+        {inputError.name.message}
+      </span>
+      )}
       {
             gotInput.name && (
               <input
@@ -102,6 +112,7 @@ function TaskForm({ task = false, isUpdating = false, updateDone }) {
                 placeholder={isUpdating ? "Update your task's description" : 'Add a description to your task'}
                 onChange={handleChange}
                 autoFocus
+                data-testid={isUpdating ? 'update-task-description-input' : 'add-task-description-input'}
               />
             )
         }
