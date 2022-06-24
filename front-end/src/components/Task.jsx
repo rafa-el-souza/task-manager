@@ -15,7 +15,9 @@ function Task({ task }) {
   return (
     <>
       {!isUpdating && (
-        <div>
+        <div
+          data-testid={`task-display-name-${task._id}`}
+        >
           <TaskDisplay task={task} />
           <TaskOptions _id={task._id} setIsUpdatingCB={setIsUpdating} />
         </div>
