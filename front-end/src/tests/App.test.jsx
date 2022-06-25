@@ -2,7 +2,7 @@
 /* eslint-disable no-undef */
 import React from 'react';
 import '@testing-library/jest-dom';
-import { screen, waitFor, cleanup } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import App from '../App';
@@ -11,16 +11,33 @@ import { renderWithProvider } from './helpers/renderWithProvider';
 import { mockTaskOne, mockTaskTwo, httpStatus } from './mocks/mocks';
 
 afterEach(() => {
-  Api.get.mockRestore();
-  Api.post.mockRestore();
-  cleanup();
+  // Api.get.mockRestore();
+  // Api.post.mockRestore();
+  // Api.get.mockReset();
+  // Api.post.mockReset();
+  // Api.get.mockClear();
+  // Api.post.mockClear();
+  jest.restoreAllMocks();
+  jest.resetAllMocks();
+  jest.clearAllMocks();
+  jest.resetModules();
+  // cleanup();
+});
+
+beforeEach(() => {
+  jest.restoreAllMocks();
+  jest.resetAllMocks();
+  jest.clearAllMocks();
+  jest.resetModules();
+  // jest.useFakeTimers();
 });
 
 describe('Add a task to the list', () => {
   describe('When successful', () => {
     it('Should make an Api request to add the task to database and show the new task on the list', async () => {
-      Api.get = jest
-        .fn()
+      jest
+        // .fn()
+        .spyOn(Api, 'get')
         .mockResolvedValueOnce({
           status: httpStatus.OK,
           data: [mockTaskTwo],
@@ -58,8 +75,9 @@ describe('Add a task to the list', () => {
 
   describe('When user input for task name is blank', () => {
     it('Should show a modal with the message "Name cannot be empty"', async () => {
-      Api.get = jest
-        .fn()
+      jest
+      // .fn()
+        .spyOn(Api, 'get')
         .mockResolvedValue({
           status: httpStatus.OK,
           data: [],
