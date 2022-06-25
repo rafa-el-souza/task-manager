@@ -1,6 +1,6 @@
 # 📋 Task Manager App 📌
 
-A(n) (yet in)complete todo list application. Developed during Trybe's backend module.
+Yet another todo list application. Developed during Trybe's backend module.
 
 ## Features
 
@@ -16,7 +16,9 @@ A(n) (yet in)complete todo list application. Developed during Trybe's backend mo
 
 ### React App
 
-* 👷 Under construction 🚧
+* React Hooks
+* Redux
+* Tests with React Testing Library
 
 ## Prerequisites
 
@@ -40,10 +42,20 @@ You will need the following installed on your computer.
    cd task-manager
    ```
 
-3. Install dependencies
+3. Install back-end dependencies
 
    ```sh
-   cd back-end && npm install
+   cd task-manager/back-end
+   
+   npm install
+   ```
+
+4. Install front-end dependencies
+
+   ```sh
+   cd task-manager/front-end
+   
+   npm install
    ```
 
 ## Usage
@@ -57,7 +69,17 @@ You will need the following installed on your computer.
 ### Initialize API
 
    ```sh
-   cd back-end && npm start
+   cd task-manager/back-end
+
+   npm start
+   ```
+
+### Initialize React App
+
+   ```sh
+   cd task-manager/front-end
+   
+   npm start
    ```
 
 ## Tests
@@ -65,7 +87,13 @@ You will need the following installed on your computer.
 * ### API Unit tests
 
    ```sh
-   cd back-end && npm run test:coverage
+   cd task-manager/back-end && npm run test:coverage
+   ```
+
+* ### Front-end tests
+
+   ```sh
+   cd task-manager/front-end && npm run test:coverage
    ```
 
 
@@ -81,10 +109,9 @@ You will need the following installed on your computer.
 
 ### Front-end
 - [x] Add documentation
-- [ ] Implement react app
-- [ ] 100% coverage unit tests
-- [ ] Add integration tests
-- [ ] Add swagger docs
+- [x] Implement react app
+- [ ] Add Tests
+- [ ] Add Style
 
 ### General
 - [ ] Add Docker
