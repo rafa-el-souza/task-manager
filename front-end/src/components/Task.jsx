@@ -1,27 +1,70 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import TaskDisplay from './TaskDisplay';
+import { CSSTransition } from 'react-transition-group';
+import TaskStatus from './TaskStatus';
+import TaskDetailsPopover from './TaskDetailsPopover';
 import TaskForm from './TaskForm';
 import TaskOptions from './TaskOptions';
 
 function Task({ task }) {
+  const {
+    _id, name, description, createdAt, updatedAt, status,
+  } = task;
+
   const [isUpdating, setIsUpdating] = useState(false);
+
+  const [showDetails, setShowDetails] = useState(false);
+
+  const [visible] = useState(true);
 
   const updateDone = () => {
     setIsUpdating(false);
   };
 
   return (
-    <>
-      {!isUpdating && (
-        <div>
-          <TaskDisplay task={task} />
-          <TaskOptions _id={task._id} setIsUpdatingCB={setIsUpdating} />
-        </div>
-      )}
-      {isUpdating && <TaskForm task={task} isUpdating updateDone={updateDone} />}
-    </>
+    <CSSTransition
+      in={visible}
+      timeout={{
+        enter: 500,
+        exit: 500,
+      }}
+      classNames="fade"
+      unmountOnExit
+    >
+      <div className="h-20 flex text-slate-200">
+        {!isUpdating && (
+          <div
+            className="flex w-screen justify-center items-center"
+            onMouseEnter={() => setShowDetails(true)}
+            onMouseLeave={() => setShowDetails(false)}
+          >
+            <TaskStatus task={{ _id, status }} />
+            <span
+              className={(status === 'pronto' && 'text-3xl w-1/2 font-bold line-through opacity-20')
+                || (status === 'andamento' && 'w-1/2 text-3xl font-bold underline')
+                || 'text-3xl font-bold w-1/2'}
+            >
+              {name}
+            </span>
+            {showDetails && (
+              <TaskDetailsPopover task={{
+                _id, description, createdAt, updatedAt,
+              }}
+              />
+            )}
+            <TaskOptions _id={task._id} setIsUpdatingCB={setIsUpdating} />
+          </div>
+        )}
+        {isUpdating && (
+          <div
+            className="flex w-screen justify-center items-center"
+          >
+            <TaskForm task={task} isUpdating updateDone={updateDone} />
+          </div>
+        )}
+      </div>
+    </CSSTransition>
   );
 }
 
