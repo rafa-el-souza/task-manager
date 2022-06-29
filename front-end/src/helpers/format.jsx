@@ -1,12 +1,8 @@
 export const unformattedStatuses = ['pendente', 'andamento', 'pronto'];
 
-export const formattedStatuses = ['🔴', '🟡', '✔️'];
-
 export const formattedMonths = ['Jan', 'Feb', 'Mar', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 export const formatDate = (date) => `${formattedMonths[date.getMonth()]} ${date.getDate()}, at ${date.getHours()}h${date.getMinutes()}`;
-
-export const formatStatus = (_status) => formattedStatuses[unformattedStatuses.indexOf(_status)];
 
 export const formatTaskForSorting = ({
   createdAt, updatedAt, ...rest
