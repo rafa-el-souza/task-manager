@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
+import { MinusCircleIcon } from '@heroicons/react/solid';
 
 import { reloadList } from '../redux/reducers/taskReducer';
 import api, { http, URL } from '../helpers/api';
@@ -23,7 +24,7 @@ function DeleteTaskButton({ _id }) {
       type="button"
       onClick={handleDeletion}
     >
-      🗑️
+      <MinusCircleIcon className="w-7 fill-blue-500" />
     </button>
   );
 }

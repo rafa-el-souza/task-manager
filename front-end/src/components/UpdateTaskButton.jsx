@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { PencilAltIcon } from '@heroicons/react/solid';
 
 function UpdateTaskButton({ setIsUpdatingCB }) {
   return (
@@ -9,7 +10,7 @@ function UpdateTaskButton({ setIsUpdatingCB }) {
         setIsUpdatingCB(true);
       }}
     >
-      ♻️
+      <PencilAltIcon className="w-7 fill-blue-500" />
     </button>
   );
 }
