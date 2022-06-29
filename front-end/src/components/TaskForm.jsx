@@ -79,21 +79,23 @@ function TaskForm({ task = false, isUpdating = false, updateDone }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      {
-        !gotInput.name && (
-          <input
-            type="text"
-            name="name"
-            value={newTask.name}
-            placeholder={isUpdating ? "Update your task's name" : 'Add a name to your task'}
-            onChange={handleChange}
-            autoFocus
-          />
-        )
-      }
-      {inputError.name && <span>{inputError.name.message}</span>}
-      {
+    <form onSubmit={handleSubmit} className="w-1/2 flex justify-center items-center">
+      <div className="flex justify-center items-center flex-nowrap h-fit mb-2 mx-5">
+        {
+            !gotInput.name && (
+              <input
+                type="text"
+                name="name"
+                value={newTask.name}
+                placeholder={isUpdating ? "Update your task's name" : 'Add a name to your task'}
+                onChange={handleChange}
+                autoFocus
+                className="form-input px-4 py-3 rounded-2xl border-2 text-slate-600"
+              />
+            )
+          }
+        {inputError.name && <span>{inputError.name.message}</span>}
+        {
             gotInput.name && (
               <input
                 type="text"
@@ -102,11 +104,12 @@ function TaskForm({ task = false, isUpdating = false, updateDone }) {
                 placeholder={isUpdating ? "Update your task's description" : 'Add a description to your task'}
                 onChange={handleChange}
                 autoFocus
+                className="form-input px-4 py-3 rounded-2xl text-slate-600 border-2"
               />
             )
-        }
+          }
+      </div>
     </form>
-
   );
 }
 
