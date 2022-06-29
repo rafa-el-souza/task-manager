@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
+import { BadgeCheckIcon, PauseIcon, PlayIcon } from '@heroicons/react/solid';
 
 import api, { http, URL } from '../helpers/api';
 import { reloadList } from '../redux/reducers/taskReducer';
-import { formatStatus, unformattedStatuses } from '../helpers/format';
+import { unformattedStatuses } from '../helpers/format';
 
 function TaskStatus({ task }) {
   const dispatch = useDispatch();
@@ -39,8 +40,11 @@ function TaskStatus({ task }) {
     <button
       type="button"
       onClick={handleUpdate}
+      className="bg-neutral-800 rounded-full w-12 mr-4"
     >
-      {formatStatus(task.status)}
+      {task.status === 'pronto' && <BadgeCheckIcon className="w-12 fill-cyan-500" />}
+      {task.status === 'andamento' && <PlayIcon className="w-12 fill-lime-500" />}
+      {task.status === 'pendente' && <PauseIcon className="w-12 fill-amber-400" />}
     </button>
   );
 }
