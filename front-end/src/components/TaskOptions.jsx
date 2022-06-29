@@ -6,10 +6,14 @@ import UpdateTaskButton from './UpdateTaskButton';
 
 function TaskOptions({ _id, setIsUpdatingCB }) {
   return (
-    <>
-      <UpdateTaskButton setIsUpdatingCB={setIsUpdatingCB} />
-      <DeleteTaskButton _id={_id} />
-    </>
+    <div>
+      <UpdateTaskButton
+        setIsUpdatingCB={setIsUpdatingCB}
+      />
+      <DeleteTaskButton
+        _id={_id}
+      />
+    </div>
   );
 }
 
