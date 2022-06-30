@@ -8,7 +8,7 @@ function TaskDetailsPopover({ task }) {
 
   return (
     <div
-      className="absolute text-sm font-thin right-1/3"
+      className="absolute text-sm font-thin right-1/4"
     >
       <div>{description}</div>
       <div>{createdAt}</div>
