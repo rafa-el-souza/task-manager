@@ -110,8 +110,8 @@ You will need the following installed on your computer.
 ### Front-end
 - [x] Add documentation
 - [x] Implement react app
-- [ ] Add Tests
-- [ ] Add Style
+- [ ] Add Tests (In Progress)
+- [x] Add Styles
 
 ### General
 - [ ] Add Docker
