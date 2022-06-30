@@ -38,7 +38,7 @@ function TaskSorter() {
           enter: 500,
           exit: 500,
         }}
-        classNames="fade"
+        classNames="pop"
         unmountOnExit
       >
         <div onChange={handleSort} className="text-slate-200 flex justify-center items-start flex-col w-24 text-xs ml-5">
