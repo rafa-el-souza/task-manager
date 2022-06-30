@@ -28,7 +28,7 @@ function Task({ task }) {
           enter: 500,
           exit: 500,
         }}
-        classNames="fade"
+        classNames="pop"
         unmountOnExit
       >
         <div
@@ -55,7 +55,7 @@ function Task({ task }) {
           enter: 500,
           exit: 500,
         }}
-        classNames="fade"
+        classNames="pop"
         unmountOnExit
       >
         <div

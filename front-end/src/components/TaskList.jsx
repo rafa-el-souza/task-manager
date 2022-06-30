@@ -40,7 +40,7 @@ function TaskList() {
           enter: 500,
           exit: 500,
         }}
-        classNames="fade"
+        classNames="pop"
         unmountOnExit
       >
         <div
@@ -58,7 +58,7 @@ function TaskList() {
               enter: 500,
               exit: 500,
             }}
-            classNames="fade"
+            classNames="pop"
             unmountOnExit
           >
             <Task
